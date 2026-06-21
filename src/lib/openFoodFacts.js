@@ -18,12 +18,20 @@ export async function fetchFromOpenFoodFacts(barcode) {
   );
 
   if (!res.ok) {
+    console.error(
+      `[OFF] HTTP ${res.status} for barcode ${barcode}: ${await res
+        .text()
+        .catch(() => "")}`
+    );
     return { found: false };
   }
 
   const data = await res.json();
 
   if (data.status !== 1 || !data.product) {
+    console.error(
+      `[OFF] No product for barcode ${barcode}. status=${data.status} status_verbose=${data.status_verbose}`
+    );
     return { found: false };
   }
 

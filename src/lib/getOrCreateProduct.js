@@ -15,7 +15,13 @@ export async function getOrCreateProduct(barcode) {
     return existing;
   }
 
-  const off = await fetchFromOpenFoodFacts(barcode);
+  let off;
+  try {
+    off = await fetchFromOpenFoodFacts(barcode);
+  } catch (e) {
+    console.error(`[OFF] fetch threw for barcode ${barcode}:`, e);
+    off = { found: false };
+  }
 
   if (!off.found) {
     const { data: notFoundRow } = await supabase
