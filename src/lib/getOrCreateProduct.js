@@ -5,11 +5,15 @@ import { analyzeIngredients } from "@/lib/haramCheck";
 export async function getOrCreateProduct(barcode) {
   const supabase = createAdminClient();
 
-  const { data: existing } = await supabase
+  const { data: existing, error: selectError } = await supabase
     .from("products")
     .select("*")
     .eq("barcode", barcode)
     .maybeSingle();
+
+  if (selectError) {
+    console.error(`[DB] select error for barcode ${barcode}:`, selectError);
+  }
 
   if (existing) {
     return existing;
@@ -24,7 +28,7 @@ export async function getOrCreateProduct(barcode) {
   }
 
   if (!off.found) {
-    const { data: notFoundRow } = await supabase
+    const { data: notFoundRow, error: insertError } = await supabase
       .from("products")
       .insert({
         barcode,
@@ -34,6 +38,13 @@ export async function getOrCreateProduct(barcode) {
       })
       .select()
       .single();
+
+    if (insertError) {
+      console.error(
+        `[DB] insert (not found) error for barcode ${barcode}:`,
+        insertError
+      );
+    }
 
     return notFoundRow;
   }
@@ -52,7 +63,7 @@ export async function getOrCreateProduct(barcode) {
     ambiguousKeywords
   );
 
-  const { data: saved } = await supabase
+  const { data: saved, error: saveError } = await supabase
     .from("products")
     .insert({
       barcode,
@@ -67,6 +78,10 @@ export async function getOrCreateProduct(barcode) {
     })
     .select()
     .single();
+
+  if (saveError) {
+    console.error(`[DB] insert (found) error for barcode ${barcode}:`, saveError);
+  }
 
   return saved;
 }
