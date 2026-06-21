@@ -10,74 +10,81 @@ export default function BarcodeScanner() {
   const isRunningRef = useRef(false);
   const [error, setError] = useState(null);
   const [scanning, setScanning] = useState(false);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function safeStop() {
+    return () => {
+      isMounted = false;
       const scanner = scannerRef.current;
       if (scanner && isRunningRef.current) {
         isRunningRef.current = false;
-        try {
-          await scanner.stop();
-        } catch {
-          // Camera may already be stopped/torn down — safe to ignore.
-        }
+        scanner.stop().catch(() => {});
       }
-    }
+    };
+  }, []);
 
-    async function start() {
-      try {
-        const { Html5Qrcode } = await import("html5-qrcode");
-        if (!isMounted || !containerRef.current) return;
+  // iOS refuses to start the camera unless it's triggered directly
+  // by a user tap — so we wait for a button press instead of auto-starting.
+  async function handleStartCamera() {
+    setError(null);
+    setStarted(true);
 
-        const scanner = new Html5Qrcode(containerRef.current.id);
-        scannerRef.current = scanner;
+    try {
+      const { Html5Qrcode } = await import("html5-qrcode");
+      if (!containerRef.current) return;
 
-        await scanner.start(
-          { facingMode: "environment" },
-          {
-            fps: 10,
-            qrbox: { width: 250, height: 150 },
-          },
-          (decodedText) => {
-            // Found a barcode — stop and navigate to the product page
-            safeStop().finally(() => {
+      const scanner = new Html5Qrcode(containerRef.current.id);
+      scannerRef.current = scanner;
+
+      await scanner.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: { width: 250, height: 150 },
+        },
+        (decodedText) => {
+          isRunningRef.current = false;
+          scanner
+            .stop()
+            .catch(() => {})
+            .finally(() => {
               router.push(`/product/${decodedText}`);
             });
-          },
-          () => {
-            // per-frame "not found yet" callback — ignore, this fires constantly
-          }
-        );
-        isRunningRef.current = true;
-        if (isMounted) setScanning(true);
-      } catch (e) {
-        if (isMounted) {
-          setError(
-            "Couldn't access the camera. Check camera permissions, or enter the barcode manually below."
-          );
+        },
+        () => {
+          // per-frame "not found yet" callback — ignore, this fires constantly
         }
-      }
+      );
+      isRunningRef.current = true;
+      setScanning(true);
+    } catch (e) {
+      setError(
+        "Couldn't access the camera. Check camera permissions in your phone's Settings app, or enter the barcode manually below."
+      );
+      setStarted(false);
     }
-
-    start();
-
-    return () => {
-      isMounted = false;
-      safeStop();
-    };
-  }, [router]);
+  }
 
   return (
     <div>
       <div
         id="barcode-reader"
         ref={containerRef}
-        className="w-full aspect-[4/3] bg-ink/5 rounded-lg overflow-hidden border border-line"
-      />
+        className="w-full aspect-[4/3] bg-ink/5 rounded-lg overflow-hidden border border-line flex items-center justify-center"
+      >
+        {!started && (
+          <button
+            onClick={handleStartCamera}
+            className="bg-teal text-paper px-5 py-3 rounded-md text-sm font-medium hover:bg-teal-light"
+          >
+            Tap to start camera
+          </button>
+        )}
+      </div>
       {error && <p className="text-sm text-stamp-red mt-3">{error}</p>}
-      {!error && !scanning && (
+      {started && !error && !scanning && (
         <p className="text-sm text-ink/50 mt-3">Starting camera…</p>
       )}
     </div>
