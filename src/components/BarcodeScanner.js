@@ -25,24 +25,37 @@ export default function BarcodeScanner() {
     };
   }, []);
 
-  // iOS refuses to start the camera unless it's triggered directly
+  // iOS Safari refuses to start the camera unless it's triggered directly
   // by a user tap — so we wait for a button press instead of auto-starting.
   async function handleStartCamera() {
     setError(null);
     setStarted(true);
 
     try {
-      const { Html5Qrcode } = await import("html5-qrcode");
+      const { Html5Qrcode, Html5QrcodeSupportedFormats } = await import(
+        "html5-qrcode"
+      );
       if (!containerRef.current) return;
 
-      const scanner = new Html5Qrcode(containerRef.current.id);
+      const scanner = new Html5Qrcode(containerRef.current.id, {
+        formatsToSupport: [
+          Html5QrcodeSupportedFormats.EAN_13,
+          Html5QrcodeSupportedFormats.EAN_8,
+          Html5QrcodeSupportedFormats.UPC_A,
+          Html5QrcodeSupportedFormats.UPC_E,
+          Html5QrcodeSupportedFormats.CODE_128,
+          Html5QrcodeSupportedFormats.CODE_39,
+          Html5QrcodeSupportedFormats.QR_CODE,
+        ],
+        verbose: false,
+      });
       scannerRef.current = scanner;
 
       await scanner.start(
         { facingMode: "environment" },
         {
           fps: 10,
-          qrbox: { width: 250, height: 150 },
+          qrbox: { width: 280, height: 180 },
         },
         (decodedText) => {
           isRunningRef.current = false;
