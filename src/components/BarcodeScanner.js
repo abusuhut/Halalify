@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -33,7 +34,11 @@ export default function BarcodeScanner() {
 
       const controls = await codeReader.decodeFromConstraints(
         {
-          video: { facingMode: { ideal: "environment" } },
+          video: {
+            facingMode: { ideal: "environment" },
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+          },
           audio: false,
         },
         videoRef.current,
