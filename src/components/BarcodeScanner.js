@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -30,7 +29,19 @@ export default function BarcodeScanner() {
 
     try {
       const { BrowserMultiFormatReader } = await import("@zxing/browser");
-      const codeReader = new BrowserMultiFormatReader();
+      const { BarcodeFormat, DecodeHintType } = await import(
+        "@zxing/library"
+      );
+
+      const hints = new Map();
+      hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+        BarcodeFormat.EAN_13,
+        BarcodeFormat.EAN_8,
+        BarcodeFormat.UPC_A,
+        BarcodeFormat.UPC_E,
+      ]);
+
+      const codeReader = new BrowserMultiFormatReader(hints);
 
       const controls = await codeReader.decodeFromConstraints(
         {
