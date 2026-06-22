@@ -24,54 +24,54 @@ export default function CertifyForm({ barcode, currentStatus, currentNote }) {
     setSaving(false);
 
     if (res.ok) {
-      setMessage("Saved.");
+      setMessage("✅ Saved successfully");
       router.refresh();
     } else {
       const data = await res.json().catch(() => ({}));
-      setMessage(data.error || "Something went wrong.");
+      setMessage("❌ " + (data.error || "Something went wrong."));
     }
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="border border-line rounded-lg p-5 bg-white/50 mt-6"
-    >
-      <p className="text-xs uppercase tracking-widest text-teal font-medium mb-3">
-        Moderator controls
+    <div className="card border-teal/20 bg-teal-pale mt-4">
+      <p className="text-xs font-semibold uppercase tracking-wider text-teal mb-4">
+        🔧 Moderator controls
       </p>
+      <form onSubmit={handleSubmit}>
+        <label className="block text-sm font-medium text-ink mb-1">Status</label>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          className="w-full border border-line rounded-xl px-3 py-2.5 text-sm mb-3 bg-white focus:outline-none focus:ring-2 focus:ring-teal/40"
+        >
+          <option value="not_certified">⚠️ Not Certified</option>
+          <option value="halal_certified">✅ Halal Certified</option>
+          <option value="haram">❌ Haram (manual override)</option>
+        </select>
 
-      <label className="block text-sm font-medium mb-1">Status</label>
-      <select
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
-        className="w-full border border-line rounded-md px-3 py-2 text-sm mb-3 bg-white"
-      >
-        <option value="not_certified">Not Certified</option>
-        <option value="halal_certified">Halal Certified</option>
-        <option value="haram">Haram (manual override)</option>
-      </select>
+        <label className="block text-sm font-medium text-ink mb-1">
+          Certificate reference (optional)
+        </label>
+        <textarea
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          rows={2}
+          className="w-full border border-line rounded-xl px-3 py-2.5 text-sm mb-3 bg-white focus:outline-none focus:ring-2 focus:ring-teal/40"
+          placeholder="e.g. Korea Muslim Federation certificate #1234"
+        />
 
-      <label className="block text-sm font-medium mb-1">
-        Certificate note (e.g. issuing body, reference number)
-      </label>
-      <textarea
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-        rows={2}
-        className="w-full border border-line rounded-md px-3 py-2 text-sm mb-3 bg-white"
-        placeholder="e.g. Korea Muslim Federation certificate #1234"
-      />
+        <button
+          type="submit"
+          disabled={saving}
+          className="bg-teal text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-teal-light transition-colors disabled:opacity-50"
+        >
+          {saving ? "Saving…" : "Save changes"}
+        </button>
 
-      <button
-        type="submit"
-        disabled={saving}
-        className="bg-teal text-paper px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-light disabled:opacity-50"
-      >
-        {saving ? "Saving…" : "Save"}
-      </button>
-
-      {message && <p className="text-sm text-ink/60 mt-2">{message}</p>}
-    </form>
+        {message && (
+          <p className="text-sm text-ink/70 mt-2">{message}</p>
+        )}
+      </form>
+    </div>
   );
 }

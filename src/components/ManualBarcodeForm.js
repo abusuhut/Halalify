@@ -20,16 +20,16 @@ export default function ManualBarcodeForm() {
       <input
         type="text"
         inputMode="numeric"
-        placeholder="Type barcode number (e.g. 8801234567890)"
+        placeholder="e.g. 8801234567890"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="flex-1 border border-line rounded-md px-3 py-2 bg-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-teal"
+        className="flex-1 border border-line rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40 focus:border-teal bg-off-white"
       />
       <button
         type="submit"
-        className="bg-teal text-paper px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-light"
+        className="bg-teal text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-teal-light transition-colors"
       >
-        Look up
+        Check
       </button>
     </form>
   );

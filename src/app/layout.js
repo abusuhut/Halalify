@@ -20,36 +20,51 @@ const notoKR = Noto_Sans_KR({
 });
 
 export const metadata = {
-  title: "Halal Scan Korea — barcode halal checker",
+  title: "Halalify — 할랄 스캐너 | Halal Scanner Korea",
   description:
-    "Scan a barcode to check if a product sold in Korea contains haram ingredients.",
+    "Scan a barcode to check if a product contains haram ingredients. 바코드를 스캔하여 할랄 여부를 확인하세요. Mahsulotning halolligini tekshiring.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
+      lang="ko"
       className={`${fraunces.variable} ${inter.variable} ${notoKR.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col bg-paper text-ink">
-        <header className="cert-rule border-b-2 border-teal">
-          <div className="max-w-3xl mx-auto px-5 py-4 flex items-center justify-between">
-            <Link href="/" className="font-display text-xl tracking-tight text-teal">
-              Halal Scan <span className="text-stamp-amber">Korea</span>
+      <body className="min-h-full flex flex-col bg-white text-ink">
+        <header className="border-b border-line bg-white sticky top-0 z-50">
+          <div className="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <span className="text-2xl">🔍</span>
+              <span className="font-display text-xl font-semibold text-teal">
+                Halalify
+              </span>
             </Link>
-            <nav className="text-sm font-medium">
-              <Link href="/admin" className="text-teal/70 hover:text-teal">
-                Moderator
-              </Link>
-            </nav>
+            <Link
+              href="/admin"
+              className="text-sm font-medium text-ink-light hover:text-teal transition-colors"
+            >
+              Moderator
+            </Link>
           </div>
         </header>
+
         <main className="flex-1">{children}</main>
-        <footer className="cert-rule border-t border-line mt-16">
-          <div className="max-w-3xl mx-auto px-5 py-6 text-xs text-ink/50">
-            Ingredient data from Open Food Facts. &ldquo;Not Certified&rdquo;
-            means no haram ingredient was detected — it is not a halal
-            guarantee.
+
+        <footer className="divider mt-16 bg-off-white">
+          <div className="max-w-3xl mx-auto px-5 py-8">
+            <div className="flex flex-col sm:flex-row justify-between gap-4 text-sm text-ink-light">
+              <div>
+                <p className="font-semibold text-ink mb-1">Halalify</p>
+                <p>할랄 성분 검사기 · Halal ingredient checker · Halol tekshiruvchi</p>
+              </div>
+              <div className="text-xs text-ink-light/70 sm:text-right">
+                <p>Data from Open Food Facts</p>
+                <p className="mt-1">
+                  &ldquo;Not Certified&rdquo; ≠ Halal guarantee
+                </p>
+              </div>
+            </div>
           </div>
         </footer>
       </body>

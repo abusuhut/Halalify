@@ -1,30 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  /* Palette — inspired by certificate paper + ink stamps, not a generic app green */
-  --paper: #f6f1e4;       /* warm certificate-paper background */
-  --ink: #1f2a24;          /* near-black ink for text */
-  --teal: #0f3d3e;         /* deep teal — primary brand color */
-  --teal-light: #155e5c;
-  --stamp-red: #a8392f;    /* haram — ink-stamp red, not alarm red */
-  --stamp-amber: #9c7a26;  /* not certified — cautious amber, not red/green */
-  --stamp-green: #2f6b4f;  /* halal certified — seal green */
-  --line: #d8cfb8;         /* hairline rule on paper */
-
-  --background: var(--paper);
+  --white: #ffffff;
+  --off-white: #f9f7f4;
+  --warm-gray: #f3f0eb;
+  --ink: #1a1a2e;
+  --ink-light: #4a4a6a;
+  --teal: #1a7a6e;
+  --teal-light: #22a090;
+  --teal-pale: #e6f5f3;
+  --haram: #c0392b;
+  --haram-pale: #fdf0ef;
+  --amber: #b07d2a;
+  --amber-pale: #fdf6e3;
+  --halal: #1e7e4e;
+  --halal-pale: #eaf6ef;
+  --line: #e8e4de;
+  --background: var(--white);
   --foreground: var(--ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-paper: var(--paper);
+  --color-white: var(--white);
+  --color-off-white: var(--off-white);
+  --color-warm-gray: var(--warm-gray);
   --color-ink: var(--ink);
+  --color-ink-light: var(--ink-light);
   --color-teal: var(--teal);
   --color-teal-light: var(--teal-light);
-  --color-stamp-red: var(--stamp-red);
-  --color-stamp-amber: var(--stamp-amber);
-  --color-stamp-green: var(--stamp-green);
+  --color-teal-pale: var(--teal-pale);
+  --color-haram: var(--haram);
+  --color-haram-pale: var(--haram-pale);
+  --color-amber: var(--amber);
+  --color-amber-pale: var(--amber-pale);
+  --color-halal: var(--halal);
+  --color-halal-pale: var(--halal-pale);
   --color-line: var(--line);
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-inter);
@@ -35,23 +47,45 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), var(--font-kr), sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Hairline rule, like a printed certificate border */
-.cert-rule {
-  border-top: 1px solid var(--line);
-}
-
-/* Ink-stamp badge: a circular, slightly rotated seal */
-.ink-stamp {
+.status-badge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  border: 2.5px solid currentColor;
+  gap: 0.4rem;
   border-radius: 9999px;
-  padding: 0.65rem 1.1rem;
-  transform: rotate(-3deg);
-  font-family: var(--font-display);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+.status-badge.haram {
+  background: var(--haram-pale);
+  color: var(--haram);
+  border: 1.5px solid var(--haram);
+}
+
+.status-badge.not_certified {
+  background: var(--amber-pale);
+  color: var(--amber);
+  border: 1.5px solid var(--amber);
+}
+
+.status-badge.halal_certified {
+  background: var(--halal-pale);
+  color: var(--halal);
+  border: 1.5px solid var(--halal);
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.divider {
+  border-top: 1px solid var(--line);
 }

@@ -1,25 +1,41 @@
 const STYLES = {
   haram: {
-    text: "Haram",
-    colorClass: "text-stamp-red",
+    icon: "❌",
+    label: "Haram",
+    labelKr: "할랄 아님",
+    labelUz: "Harom",
+    className: "haram",
   },
   not_certified: {
-    text: "Not Certified",
-    colorClass: "text-stamp-amber",
+    icon: "⚠️",
+    label: "Not Certified",
+    labelKr: "미인증",
+    labelUz: "Sertifikatsiz",
+    className: "not_certified",
   },
   halal_certified: {
-    text: "Halal Certified",
-    colorClass: "text-stamp-green",
+    icon: "✅",
+    label: "Halal Certified",
+    labelKr: "할랄 인증",
+    labelUz: "Halol sertifikatlangan",
+    className: "halal_certified",
   },
 };
 
 export default function StatusStamp({ status, size = "md" }) {
   const style = STYLES[status] || STYLES.not_certified;
-  const sizeClass = size === "lg" ? "text-2xl px-6 py-3" : "text-sm px-4 py-2";
+  const isLarge = size === "lg";
 
   return (
-    <span className={`ink-stamp ${style.colorClass} ${sizeClass}`}>
-      {style.text}
-    </span>
+    <div className={`inline-flex flex-col items-start gap-1 ${isLarge ? "mb-2" : ""}`}>
+      <span className={`status-badge ${style.className} ${isLarge ? "text-lg px-5 py-2.5" : "text-sm"}`}>
+        {style.icon} {style.label}
+      </span>
+      {isLarge && (
+        <span className="text-xs text-ink-light ml-1">
+          {style.labelKr} · {style.labelUz}
+        </span>
+      )}
+    </div>
   );
 }
