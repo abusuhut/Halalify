@@ -35,8 +35,8 @@ export default function CertifyForm({ barcode, currentStatus, currentNote }) {
   }
 
   return (
-    <div className="card border-teal/20 bg-teal-pale mt-4">
-      <p className="text-xs font-semibold uppercase tracking-wider text-teal mb-4">
+    <div className="card border-green-mid/20 bg-green-pale mt-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-green-mid mb-4">
         🔧 {t.moderatorControls}
       </p>
       <form onSubmit={handleSubmit}>
@@ -44,7 +44,7 @@ export default function CertifyForm({ barcode, currentStatus, currentNote }) {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="w-full border border-line rounded-xl px-3 py-2.5 text-sm mb-3 bg-white focus:outline-none focus:ring-2 focus:ring-teal/40"
+          className="w-full border border-line rounded-xl px-3 py-2.5 text-sm mb-3 bg-cream focus:outline-none focus:ring-2 focus:ring-green-mid/30"
         >
           <option value="not_certified">⚠️ {t.notCertified}</option>
           <option value="halal_certified">✅ {t.halalCertified}</option>
@@ -56,19 +56,19 @@ export default function CertifyForm({ barcode, currentStatus, currentNote }) {
           value={note}
           onChange={(e) => setNote(e.target.value)}
           rows={2}
-          className="w-full border border-line rounded-xl px-3 py-2.5 text-sm mb-3 bg-white focus:outline-none focus:ring-2 focus:ring-teal/40"
+          className="w-full border border-line rounded-xl px-3 py-2.5 text-sm mb-3 bg-cream focus:outline-none focus:ring-2 focus:ring-green-mid/30"
           placeholder={t.certPlaceholder}
         />
 
         <button
           type="submit"
           disabled={saving}
-          className="bg-teal text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-teal-light transition-colors disabled:opacity-50"
+          className="bg-green-deep text-cream px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-green-mid transition-colors disabled:opacity-50 shadow-sm"
         >
           {saving ? t.saving : t.saveChanges}
         </button>
 
-        {message && <p className="text-sm text-ink/70 mt-2">{message}</p>}
+        {message && <p className="text-sm text-ink-mid mt-2">{message}</p>}
       </form>
     </div>
   );

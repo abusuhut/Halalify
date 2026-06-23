@@ -2,6 +2,7 @@ import { Fraunces, Inter, Noto_Sans_KR } from "next/font/google";
 import Link from "next/link";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import FooterClient from "@/components/FooterClient";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -33,13 +34,16 @@ export default function RootLayout({ children }) {
       lang="ko"
       className={`${fraunces.variable} ${inter.variable} ${notoKR.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col bg-white text-ink">
+      <body className="min-h-full flex flex-col bg-ivory text-ink">
         <LanguageProvider>
-          <header className="border-b border-line bg-white sticky top-0 z-50">
+          {/* Header */}
+          <header className="bg-green-deep border-b border-green-mid/30 sticky top-0 z-50">
             <div className="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
-              <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-                <span className="text-2xl">🔍</span>
-                <span className="font-display text-xl font-semibold text-teal">
+              <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-gold/20 border border-gold/30 flex items-center justify-center text-base">
+                  🔍
+                </div>
+                <span className="font-display text-xl font-semibold text-cream tracking-tight">
                   Halalify
                 </span>
               </Link>
@@ -47,22 +51,18 @@ export default function RootLayout({ children }) {
                 <LanguageSwitcher />
                 <Link
                   href="/admin"
-                  className="text-sm font-medium text-ink-light hover:text-teal transition-colors hidden sm:block"
+                  className="text-sm font-medium text-green-pale/60 hover:text-green-pale transition-colors"
                 >
-                  Moderator
+                  Mod
                 </Link>
               </div>
             </div>
           </header>
 
           <main className="flex-1">{children}</main>
-
           <FooterClient />
         </LanguageProvider>
       </body>
     </html>
   );
 }
-
-// Client footer that reads translations
-import FooterClient from "@/components/FooterClient";

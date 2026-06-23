@@ -15,7 +15,7 @@ export default function StatusStamp({ status, size = "md" }) {
   const isLarge = size === "lg";
 
   return (
-    <span className={`status-badge ${style.className} ${isLarge ? "text-lg px-5 py-2.5" : "text-sm"}`}>
+    <span className={`status-badge ${style.className} ${isLarge ? "text-base px-5 py-2.5" : "text-xs"}`}>
       {style.icon} {style.label}
     </span>
   );

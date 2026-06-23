@@ -1,44 +1,68 @@
 @import "tailwindcss";
 
 :root {
-  /* Clean white base with warm friendly accents */
-  --white: #ffffff;
-  --off-white: #f9f7f4;
-  --warm-gray: #f3f0eb;
-  --ink: #1a1a2e;
-  --ink-light: #4a4a6a;
+  /* Islamic architecture inspired — ivory + deep green + gold */
+  --ivory: #faf8f3;
+  --ivory-dark: #f0ebe0;
+  --cream: #fffdf7;
+  --parchment: #e8e0cc;
 
-  /* Brand — friendly teal-green */
-  --teal: #1a7a6e;
-  --teal-light: #22a090;
-  --teal-pale: #e6f5f3;
+  --green-deep: #1a3d2b;
+  --green-mid: #2d6a4f;
+  --green-light: #3d8b6e;
+  --green-pale: #eaf4ef;
+  --green-glow: rgba(45, 106, 79, 0.08);
 
-  /* Status colors */
-  --haram: #c0392b;
-  --haram-pale: #fdf0ef;
-  --amber: #b07d2a;
-  --amber-pale: #fdf6e3;
-  --halal: #1e7e4e;
-  --halal-pale: #eaf6ef;
+  --gold: #b8962e;
+  --gold-light: #d4af50;
+  --gold-pale: #fdf6e3;
+  --gold-glow: rgba(184, 150, 46, 0.12);
 
-  /* Borders */
-  --line: #e8e4de;
+  --ink: #1a1f1a;
+  --ink-mid: #3d4a3d;
+  --ink-light: #6b7a6b;
+  --ink-faint: #a0afa0;
 
-  --background: var(--white);
+  --haram: #8b2020;
+  --haram-mid: #a83232;
+  --haram-pale: #fdf2f2;
+
+  --amber: #8b6420;
+  --amber-pale: #fdf8ee;
+
+  --halal: #1a3d2b;
+  --halal-mid: #2d6a4f;
+  --halal-pale: #eaf4ef;
+
+  --line: #ddd8cc;
+  --line-light: #eee9df;
+
+  --background: var(--ivory);
   --foreground: var(--ink);
+
+  --shadow-sm: 0 1px 3px rgba(26,63,43,0.08), 0 1px 2px rgba(26,63,43,0.04);
+  --shadow-md: 0 4px 12px rgba(26,63,43,0.10), 0 2px 4px rgba(26,63,43,0.06);
+  --shadow-lg: 0 8px 24px rgba(26,63,43,0.12), 0 4px 8px rgba(26,63,43,0.06);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-white: var(--white);
-  --color-off-white: var(--off-white);
-  --color-warm-gray: var(--warm-gray);
+  --color-ivory: var(--ivory);
+  --color-ivory-dark: var(--ivory-dark);
+  --color-cream: var(--cream);
+  --color-parchment: var(--parchment);
+  --color-green-deep: var(--green-deep);
+  --color-green-mid: var(--green-mid);
+  --color-green-light: var(--green-light);
+  --color-green-pale: var(--green-pale);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-pale: var(--gold-pale);
   --color-ink: var(--ink);
+  --color-ink-mid: var(--ink-mid);
   --color-ink-light: var(--ink-light);
-  --color-teal: var(--teal);
-  --color-teal-light: var(--teal-light);
-  --color-teal-pale: var(--teal-pale);
+  --color-ink-faint: var(--ink-faint);
   --color-haram: var(--haram);
   --color-haram-pale: var(--haram-pale);
   --color-amber: var(--amber);
@@ -46,57 +70,82 @@
   --color-halal: var(--halal);
   --color-halal-pale: var(--halal-pale);
   --color-line: var(--line);
+  --color-line-light: var(--line-light);
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-inter);
   --font-kr: var(--font-noto-kr);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--ivory);
+  color: var(--ink);
   font-family: var(--font-sans), var(--font-kr), sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Status badge */
+/* Premium card */
+.card {
+  background: var(--cream);
+  border: 1px solid var(--line-light);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-elevated {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+/* Status badges */
 .status-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   border-radius: 9999px;
-  padding: 0.5rem 1.2rem;
+  padding: 0.5rem 1.25rem;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   letter-spacing: 0.01em;
 }
 
 .status-badge.haram {
   background: var(--haram-pale);
   color: var(--haram);
-  border: 1.5px solid var(--haram);
+  border: 1.5px solid rgba(139,32,32,0.25);
 }
 
 .status-badge.not_certified {
   background: var(--amber-pale);
   color: var(--amber);
-  border: 1.5px solid var(--amber);
+  border: 1.5px solid rgba(139,100,32,0.25);
 }
 
 .status-badge.halal_certified {
   background: var(--halal-pale);
   color: var(--halal);
-  border: 1.5px solid var(--halal);
+  border: 1.5px solid rgba(26,61,43,0.25);
 }
 
-/* Card style */
-.card {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 1rem;
-  padding: 1.5rem;
+/* Islamic geometric pattern — subtle SVG background */
+.geometric-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d6a4f' fill-opacity='0.04'%3E%3Cpath d='M30 0l8.66 5v10L30 20l-8.66-5V5L30 0zm0 40l8.66 5v10L30 60l-8.66-5V45L30 40zM0 20l8.66 5v10L0 40l-8.66-5V25L0 20zm60 0l8.66 5v10L60 40l-8.66-5V25L60 20zM15 10l8.66 5v10L15 30l-8.66-5V15L15 10zm30 0l8.66 5v10L45 30l-8.66-5V15L45 10zm-30 30l8.66 5v10L15 60l-8.66-5V45L15 40zm30 0l8.66 5v10L45 60l-8.66-5V45L45 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Section divider */
+/* Gold divider line */
+.gold-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+}
+
+/* Green gradient hero background */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 60%, var(--green-light) 100%);
+}
+
 .divider {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--line-light);
 }

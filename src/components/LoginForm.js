@@ -19,51 +19,44 @@ export default function LoginForm() {
     setError(null);
 
     const supabase = createClient();
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
 
     setLoading(false);
 
-    if (signInError) {
-      setError(signInError.message);
-      return;
-    }
-
+    if (signInError) { setError(signInError.message); return; }
     router.refresh();
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-ink mb-1">{t.email}</label>
+        <label className="block text-sm font-medium text-ink mb-1.5">{t.email}</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-off-white focus:outline-none focus:ring-2 focus:ring-teal/40 focus:border-teal"
+          className="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-ivory focus:outline-none focus:ring-2 focus:ring-green-mid/30 focus:border-green-mid transition-colors"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-ink mb-1">{t.password}</label>
+        <label className="block text-sm font-medium text-ink mb-1.5">{t.password}</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-off-white focus:outline-none focus:ring-2 focus:ring-teal/40 focus:border-teal"
+          className="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-ivory focus:outline-none focus:ring-2 focus:ring-green-mid/30 focus:border-green-mid transition-colors"
         />
       </div>
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-teal text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-teal-light transition-colors disabled:opacity-50"
+        className="w-full bg-green-deep text-cream py-3 rounded-xl text-sm font-semibold hover:bg-green-mid transition-colors disabled:opacity-50 shadow-sm"
       >
         {loading ? "…" : t.signIn}
       </button>
-      {error && <p className="text-sm text-haram">{error}</p>}
+      {error && <p className="text-sm text-haram bg-haram-pale px-3 py-2 rounded-lg">{error}</p>}
     </form>
   );
 }
