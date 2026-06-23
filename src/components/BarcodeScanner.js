@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function BarcodeScanner() {
   const router = useRouter();
+  const { t } = useLanguage();
   const videoRef = useRef(null);
   const controlsRef = useRef(null);
   const hasNavigatedRef = useRef(false);
@@ -20,8 +22,6 @@ export default function BarcodeScanner() {
     };
   }, []);
 
-  // iOS requires the camera to be started directly from a user tap —
-  // so we wait for a button press instead of auto-starting on page load.
   async function handleStartCamera() {
     setError(null);
     setStarted(true);
@@ -29,9 +29,7 @@ export default function BarcodeScanner() {
 
     try {
       const { BrowserMultiFormatReader } = await import("@zxing/browser");
-      const { BarcodeFormat, DecodeHintType } = await import(
-        "@zxing/library"
-      );
+      const { BarcodeFormat, DecodeHintType } = await import("@zxing/library");
 
       const hints = new Map();
       hints.set(DecodeHintType.POSSIBLE_FORMATS, [
@@ -66,16 +64,14 @@ export default function BarcodeScanner() {
       controlsRef.current = controls;
       setScanning(true);
     } catch (e) {
-      setError(
-        "Couldn't access the camera. Check camera permissions in your phone's Settings app, or enter the barcode manually below."
-      );
+      setError(t.cameraError);
       setStarted(false);
     }
   }
 
   return (
     <div>
-      <div className="relative w-full aspect-[4/3] bg-ink/5 rounded-lg overflow-hidden border border-line flex items-center justify-center">
+      <div className="relative w-full aspect-[4/3] bg-ink/5 rounded-xl overflow-hidden border border-line flex items-center justify-center">
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
@@ -85,18 +81,18 @@ export default function BarcodeScanner() {
         {!started && (
           <button
             onClick={handleStartCamera}
-            className="relative z-10 bg-teal text-paper px-5 py-3 rounded-md text-sm font-medium hover:bg-teal-light"
+            className="relative z-10 bg-teal text-white px-5 py-3 rounded-xl text-sm font-semibold hover:bg-teal-light transition-colors"
           >
-            Tap to start camera
+            {t.tapToStart}
           </button>
         )}
         {started && !scanning && !error && (
-          <p className="relative z-10 text-sm text-ink/50 bg-paper/80 px-3 py-1 rounded">
-            Starting camera…
+          <p className="relative z-10 text-sm text-ink/50 bg-white/80 px-3 py-1 rounded">
+            {t.startingCamera}
           </p>
         )}
       </div>
-      {error && <p className="text-sm text-stamp-red mt-3">{error}</p>}
+      {error && <p className="text-sm text-haram mt-3">{error}</p>}
     </div>
   );
 }

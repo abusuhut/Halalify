@@ -1,21 +1,29 @@
 @import "tailwindcss";
 
 :root {
+  /* Clean white base with warm friendly accents */
   --white: #ffffff;
   --off-white: #f9f7f4;
   --warm-gray: #f3f0eb;
   --ink: #1a1a2e;
   --ink-light: #4a4a6a;
+
+  /* Brand — friendly teal-green */
   --teal: #1a7a6e;
   --teal-light: #22a090;
   --teal-pale: #e6f5f3;
+
+  /* Status colors */
   --haram: #c0392b;
   --haram-pale: #fdf0ef;
   --amber: #b07d2a;
   --amber-pale: #fdf6e3;
   --halal: #1e7e4e;
   --halal-pale: #eaf6ef;
+
+  /* Borders */
   --line: #e8e4de;
+
   --background: var(--white);
   --foreground: var(--ink);
 }
@@ -50,6 +58,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Status badge */
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -79,6 +88,7 @@ body {
   border: 1.5px solid var(--halal);
 }
 
+/* Card style */
 .card {
   background: var(--white);
   border: 1px solid var(--line);
@@ -86,6 +96,7 @@ body {
   padding: 1.5rem;
 }
 
+/* Section divider */
 .divider {
   border-top: 1px solid var(--line);
 }

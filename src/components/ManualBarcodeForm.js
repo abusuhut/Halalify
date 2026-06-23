@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ManualBarcodeForm() {
   const [value, setValue] = useState("");
   const router = useRouter();
+  const { t } = useLanguage();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,7 +22,7 @@ export default function ManualBarcodeForm() {
       <input
         type="text"
         inputMode="numeric"
-        placeholder="e.g. 8801234567890"
+        placeholder={t.manualPlaceholder}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         className="flex-1 border border-line rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal/40 focus:border-teal bg-off-white"
@@ -29,7 +31,7 @@ export default function ManualBarcodeForm() {
         type="submit"
         className="bg-teal text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-teal-light transition-colors"
       >
-        Check
+        {t.checkButton}
       </button>
     </form>
   );

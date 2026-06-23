@@ -1,5 +1,7 @@
 import { Fraunces, Inter, Noto_Sans_KR } from "next/font/google";
 import Link from "next/link";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -32,42 +34,35 @@ export default function RootLayout({ children }) {
       className={`${fraunces.variable} ${inter.variable} ${notoKR.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-white text-ink">
-        <header className="border-b border-line bg-white sticky top-0 z-50">
-          <div className="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl">🔍</span>
-              <span className="font-display text-xl font-semibold text-teal">
-                Halalify
-              </span>
-            </Link>
-            <Link
-              href="/admin"
-              className="text-sm font-medium text-ink-light hover:text-teal transition-colors"
-            >
-              Moderator
-            </Link>
-          </div>
-        </header>
-
-        <main className="flex-1">{children}</main>
-
-        <footer className="divider mt-16 bg-off-white">
-          <div className="max-w-3xl mx-auto px-5 py-8">
-            <div className="flex flex-col sm:flex-row justify-between gap-4 text-sm text-ink-light">
-              <div>
-                <p className="font-semibold text-ink mb-1">Halalify</p>
-                <p>할랄 성분 검사기 · Halal ingredient checker · Halol tekshiruvchi</p>
-              </div>
-              <div className="text-xs text-ink-light/70 sm:text-right">
-                <p>Data from Open Food Facts</p>
-                <p className="mt-1">
-                  &ldquo;Not Certified&rdquo; ≠ Halal guarantee
-                </p>
+        <LanguageProvider>
+          <header className="border-b border-line bg-white sticky top-0 z-50">
+            <div className="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
+              <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-2xl">🔍</span>
+                <span className="font-display text-xl font-semibold text-teal">
+                  Halalify
+                </span>
+              </Link>
+              <div className="flex items-center gap-3">
+                <LanguageSwitcher />
+                <Link
+                  href="/admin"
+                  className="text-sm font-medium text-ink-light hover:text-teal transition-colors hidden sm:block"
+                >
+                  Moderator
+                </Link>
               </div>
             </div>
-          </div>
-        </footer>
+          </header>
+
+          <main className="flex-1">{children}</main>
+
+          <FooterClient />
+        </LanguageProvider>
       </body>
     </html>
   );
 }
+
+// Client footer that reads translations
+import FooterClient from "@/components/FooterClient";

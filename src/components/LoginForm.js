@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabaseBrowser";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export default function LoginForm() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { t } = useLanguage();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -33,31 +35,35 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm">
-      <label className="block text-sm font-medium mb-1">Email</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        className="w-full border border-line rounded-md px-3 py-2 text-sm mb-3 bg-white"
-      />
-      <label className="block text-sm font-medium mb-1">Password</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        className="w-full border border-line rounded-md px-3 py-2 text-sm mb-4 bg-white"
-      />
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <div>
+        <label className="block text-sm font-medium text-ink mb-1">{t.email}</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-off-white focus:outline-none focus:ring-2 focus:ring-teal/40 focus:border-teal"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-ink mb-1">{t.password}</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-off-white focus:outline-none focus:ring-2 focus:ring-teal/40 focus:border-teal"
+        />
+      </div>
       <button
         type="submit"
         disabled={loading}
-        className="bg-teal text-paper px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-light disabled:opacity-50"
+        className="w-full bg-teal text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-teal-light transition-colors disabled:opacity-50"
       >
-        {loading ? "Signing in…" : "Sign in"}
+        {loading ? "…" : t.signIn}
       </button>
-      {error && <p className="text-sm text-stamp-red mt-3">{error}</p>}
+      {error && <p className="text-sm text-haram">{error}</p>}
     </form>
   );
 }
