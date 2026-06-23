@@ -9,88 +9,124 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero Section */}
+      {/* ── HERO ── */}
       <div className="hero-gradient geometric-bg relative overflow-hidden">
-        {/* Gold top line */}
         <div className="gold-line" />
-        <div className="max-w-3xl mx-auto px-5 py-14 text-center relative z-10">
-          {/* Arabic bismillah-style ornament */}
-          <div className="flex items-center justify-center gap-3 mb-6 opacity-60">
-            <div className="h-px w-12 bg-gold-light" />
-            <span className="text-gold-light text-lg">✦</span>
-            <div className="h-px w-12 bg-gold-light" />
+        <div className="max-w-3xl mx-auto px-5 pt-16 pb-12 relative z-10">
+
+          {/* Top ornament */}
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-gold/40" />
+            <span className="text-gold/70 text-sm tracking-[0.3em] font-medium uppercase">Halalify</span>
+            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-gold/40" />
           </div>
-          <p className="text-gold-light text-xs font-semibold uppercase tracking-[0.2em] mb-3">
-            {t.tagline}
-          </p>
-          <h1 className="font-display text-5xl sm:text-6xl text-cream font-semibold leading-tight mb-4">
-            {t.hero}
-          </h1>
-          <p className="text-green-pale/70 text-base max-w-md mx-auto">
-            {t.subtitle}
-          </p>
-          {/* Gold bottom ornament */}
-          <div className="flex items-center justify-center gap-3 mt-8 opacity-40">
-            <div className="h-px w-8 bg-gold-light" />
+
+          {/* Main headline */}
+          <div className="text-center mb-8">
+            <h1 className="font-display text-5xl sm:text-6xl text-cream font-semibold leading-[1.1] mb-5">
+              Know what&apos;s<br />
+              <span className="text-gold-light italic">in your food.</span>
+            </h1>
+            <p className="text-green-pale/70 text-base sm:text-lg max-w-lg mx-auto leading-relaxed">
+              {t.subtitle}
+            </p>
+          </div>
+
+          {/* Stats bar */}
+          <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto mb-10">
+            {[
+              { num: "3M+", label: "Products" },
+              { num: "3", label: "Languages" },
+              { num: "100%", label: "Free" },
+            ].map((s) => (
+              <div key={s.label} className="text-center border border-green-mid/30 rounded-xl py-3 px-2 bg-green-deep/30 backdrop-blur">
+                <p className="font-display text-2xl text-gold-light font-semibold">{s.num}</p>
+                <p className="text-green-pale/50 text-xs mt-0.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom ornament */}
+          <div className="flex items-center justify-center gap-3 opacity-30">
+            <div className="h-px w-16 bg-gold-light" />
             <span className="text-gold-light text-xs">◆</span>
-            <div className="h-px w-8 bg-gold-light" />
+            <div className="h-px w-16 bg-gold-light" />
           </div>
         </div>
         <div className="gold-line" />
       </div>
 
-      {/* Main content */}
-      <div className="max-w-2xl mx-auto px-5 py-8">
+      {/* ── SCAN SECTION ── */}
+      <div className="max-w-2xl mx-auto px-5 py-10">
 
-        {/* Scanner Card */}
-        <div className="card-elevated mb-4">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 rounded-lg bg-green-pale border border-green-mid/20 flex items-center justify-center text-sm">
-              📷
-            </div>
-            <p className="text-sm font-semibold text-ink">{t.scanLabel}</p>
-          </div>
+        {/* Section label */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-px flex-1 bg-line" />
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-faint">{t.scanLabel}</p>
+          <div className="h-px flex-1 bg-line" />
+        </div>
+
+        <div className="card-elevated mb-6">
           <BarcodeScanner />
         </div>
 
-        {/* Divider with ornament */}
-        <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-px bg-line" />
-          <span className="text-ink-faint text-xs">or · 또는 · yoki</span>
-          <div className="flex-1 h-px bg-line" />
+        {/* Or divider */}
+        <div className="flex items-center gap-4 my-6">
+          <div className="h-px flex-1 bg-line" />
+          <span className="text-xs text-ink-faint font-medium px-2">or · 또는 · yoki</span>
+          <div className="h-px flex-1 bg-line" />
         </div>
 
-        {/* Manual Entry */}
-        <div className="card mb-10">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 rounded-lg bg-green-pale border border-green-mid/20 flex items-center justify-center text-sm">
-              ⌨️
-            </div>
-            <p className="text-sm font-semibold text-ink">{t.manualLabel}</p>
-          </div>
+        {/* Manual entry */}
+        <div className="card mb-12">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-ink-faint mb-3">{t.manualLabel}</p>
           <ManualBarcodeForm />
         </div>
 
-        {/* Status Cards */}
-        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-ink-faint text-center mb-4">
-          How it works
-        </p>
-        <div className="grid sm:grid-cols-3 gap-3 mb-4">
-          <div className="rounded-xl p-4 bg-haram-pale border border-haram/10">
-            <div className="w-8 h-8 rounded-full bg-haram/10 flex items-center justify-center text-base mb-3">❌</div>
-            <p className="font-semibold text-haram text-sm mb-1">{t.haram}</p>
-            <p className="text-xs text-ink-light leading-relaxed">{t.haramDesc}</p>
+        {/* ── HOW IT WORKS ── */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-px flex-1 bg-line" />
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-faint">How it works</p>
+          <div className="h-px flex-1 bg-line" />
+        </div>
+
+        <div className="grid sm:grid-cols-3 gap-4 mb-12">
+          {[
+            { icon: "❌", label: t.haram, desc: t.haramDesc, bg: "bg-haram-pale", border: "border-haram/10", color: "text-haram" },
+            { icon: "⚠️", label: t.notCertified, desc: t.notCertifiedDesc, bg: "bg-amber-pale", border: "border-amber/10", color: "text-amber" },
+            { icon: "✅", label: t.halalCertified, desc: t.halalCertifiedDesc, bg: "bg-halal-pale", border: "border-halal/10", color: "text-halal" },
+          ].map((item) => (
+            <div key={item.label} className={`rounded-2xl p-5 border ${item.bg} ${item.border}`}>
+              <div className="text-2xl mb-3">{item.icon}</div>
+              <p className={`font-semibold text-sm mb-2 ${item.color}`}>{item.label}</p>
+              <p className="text-xs text-ink-light leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── TRUST SECTION ── */}
+        <div className="rounded-2xl bg-green-deep geometric-bg overflow-hidden">
+          <div className="gold-line" />
+          <div className="p-7">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold/70 mb-4">Our Promise</p>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {[
+                { icon: "🛡️", title: "Honest, not optimistic", desc: "We never say 'Halal' without a real certificate. If we don't know, we say so." },
+                { icon: "📖", title: "Transparent logic", desc: "You can see exactly which ingredients triggered every result." },
+                { icon: "🔄", title: "Community data", desc: "Powered by Open Food Facts — millions of products, openly maintained." },
+                { icon: "🆓", title: "Always free", desc: "No account needed. No ads. Just scan and know." },
+              ].map((item) => (
+                <div key={item.title} className="flex gap-3">
+                  <span className="text-xl flex-shrink-0 mt-0.5">{item.icon}</span>
+                  <div>
+                    <p className="text-cream font-semibold text-sm mb-1">{item.title}</p>
+                    <p className="text-green-pale/60 text-xs leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="rounded-xl p-4 bg-amber-pale border border-amber/10">
-            <div className="w-8 h-8 rounded-full bg-amber/10 flex items-center justify-center text-base mb-3">⚠️</div>
-            <p className="font-semibold text-amber text-sm mb-1">{t.notCertified}</p>
-            <p className="text-xs text-ink-light leading-relaxed">{t.notCertifiedDesc}</p>
-          </div>
-          <div className="rounded-xl p-4 bg-halal-pale border border-halal/10">
-            <div className="w-8 h-8 rounded-full bg-halal/10 flex items-center justify-center text-base mb-3">✅</div>
-            <p className="font-semibold text-halal text-sm mb-1">{t.halalCertified}</p>
-            <p className="text-xs text-ink-light leading-relaxed">{t.halalCertifiedDesc}</p>
-          </div>
+          <div className="gold-line" />
         </div>
       </div>
     </div>
